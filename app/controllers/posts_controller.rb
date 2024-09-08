@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
 
   rescue_from Exception do |e|
-    log.error "#{e.message}"
-    render json: {error: e.message}, status: :internal_error
+    render json: {error: e.message}, status: :internal_server_error
   end
 
   rescue_from ActiveRecord::RecordInvalid do |e|
@@ -12,6 +11,9 @@ class PostsController < ApplicationController
   # GET /posts
   def index 
     @posts = Post.where(published: true)
+    if !params[:search].nil? && params[:search].present?
+      @posts = PostsSearchService.search(@posts, params[:search])
+    end
     render json: @posts, status: :ok
   end
   # GET /posts/{id}
