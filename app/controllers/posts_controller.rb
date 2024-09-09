@@ -25,9 +25,9 @@ class PostsController < ApplicationController
   end
   # GET /posts/{id}
   def show 
-    @posts = Post.find(params[:id])
-    if (@posts.published? || (Current.user && @posts.user_id == Current.user.id))
-      render json: @posts, status: :ok
+    @post = Post.find(params[:id])
+    if (@post.published? || (Current.user && @post.user_id == Current.user.id))
+      render json: @post, status: :ok
     else
       render json: {error: 'Not Found'}, status: :not_found
     end
