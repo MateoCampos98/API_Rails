@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 7.0.0'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 3.4', '>= 3.4.2'
+  gem "letter_opener"
 end
 
 group :development do
